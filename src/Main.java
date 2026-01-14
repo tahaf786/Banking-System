@@ -1,4 +1,3 @@
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,11 +18,15 @@ public class Main {
         System.out.println("Accounts Loaded: " + accounts.size());
         displayAccounts(accounts);
 
-        System.out.println("=== SELECT AN ACCOUNT TO USE ===");
-        System.out.println("Select account number (1-" + accounts.size() + "): ");
-        int accountChoice = scanner.nextInt();
 
-        Account currentAccount = accounts.get(accountChoice - 1);
+        System.out.println("=== SELECT AN ACCOUNT TO USE ===");
+        Account currentAccount = selectAccount(accounts, scanner);
+
+        if (currentAccount == null) {
+            System.out.println("No account selected. Exiting.");
+            scanner.close();
+            return;
+        }
         System.out.println("Selected: " + currentAccount.getAccountNumber());
 
         // SavingsAccount savings = new SavingsAccount("SAV001", 1000.0, 0.05);
@@ -64,8 +67,13 @@ public class Main {
                 }
 
                 if (choice == 3) {
-                    savings1.addInterest();
-                    System.out.println("New balance: $" + currentAccount.getBalance());
+                    if (currentAccount instanceof SavingsAccount) {
+                        SavingsAccount savingsAccount = (SavingsAccount) currentAccount;
+                        savingsAccount.addInterest();
+                    } else {
+                        System.out.println("Only savings accounts earn interest!");
+                    }
+
                 }
 
                 if (choice == 4) {
@@ -80,6 +88,7 @@ public class Main {
 
         scanner.close();
     }
+
 
     private static void displayAccounts(ArrayList<Account> accounts) {
         System.out.println("\n=== YOUR ACCOUNTS ===");
@@ -100,4 +109,24 @@ public class Main {
         }
         System.out.println();
     }
+
+    private static Account selectAccount(ArrayList<Account> accounts, Scanner scanner) {
+        if (accounts.size() == 0) {
+            System.out.println("No accounts available");
+            return null;
+        }
+        displayAccounts(accounts);
+
+        System.out.println("Select account number (1- " + accounts.size() + "): ");
+        int choice = scanner.nextInt();
+
+        if (choice < 1 || choice > accounts.size()) {
+            System.out.println("Invalid choice");
+            return null;
+        }
+        Account selected = accounts.get(choice - 1);
+        System.out.println("Selected: " + selected.getAccountNumber());
+        return selected;
+    }
 }
+
