@@ -21,6 +21,23 @@ A console-based banking application built in Java that demonstrates Object-Orien
 - **Balance Inquiry**: Check current account balance
 - **Error Handling**: Graceful handling of invalid transactions
 - **User-Friendly Menu**: Interactive console-based interface
+- 
+- ### Two-Level Menu System
+- **Main Menu**: Account management (create, delete, select, view)
+- **Account Menu**: Banking operations (deposit, withdraw, interest, balance)
+
+### Dynamic Account Management
+- Create unlimited new accounts at runtime
+- Choose account type (Savings/Checking)
+- Delete accounts with confirmation
+- Duplicate account number prevention
+
+### Enhanced User Experience
+- Switch between accounts without restarting
+- Formatted account display with overdraft info
+- Professional box-drawing characters
+- Clear error messages and validation
+- Press Enter to continue prompts
 
 ## 🛠️ Technologies Used
 
